@@ -2,7 +2,7 @@ import mongoose, { Model } from 'mongoose';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Task, TaskDocument } from './tasks.model';
-import { CreateTaskDto, GetTaskByIdDto } from './dto';
+import { CreateTaskDto } from './dto';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { StatusEnum } from '../../types/status';
