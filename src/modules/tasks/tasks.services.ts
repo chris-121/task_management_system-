@@ -1,5 +1,9 @@
 import mongoose, { Model } from 'mongoose';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Task, TaskDocument } from './tasks.model';
 import { CreateTaskDto } from './dto';
@@ -50,7 +54,12 @@ export class TasksService {
   async getTaskById(id: string) {
     if (!mongoose.isValidObjectId(id))
       throw new BadRequestException('Please provide valid Id');
-    return this.taskModel.findById(id);
+
+    const task = await this.taskModel.findById(id);
+
+    if (!task) throw new NotFoundException('Task not found');
+
+    return task;
   }
 
   async getMetrics() {
